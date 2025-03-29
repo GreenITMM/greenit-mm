@@ -109,7 +109,7 @@
                   <div>Data Center Maintainance</div>
                 </div>
 
-                <div class="item pointer" @click="goRoute('data-center-colocation')">
+                <div class="item pointer" @click="goRoute('server-rental')">
                   <img
                     :src="require('@/assets/images/icon/ServerRental.png')"
                     alt=""
@@ -180,7 +180,7 @@
             ><span>Company </span> <i class="fa-solid fa-sort-down"></i
           ></router-link>
         </div>
-        <div class="mega-menu company-mega-menu">
+        <div class="mega-menu company-mega-menu" v-if="isMegaMenu">
           <div class="company-links">
             <div class="company-quote">
               <span>Yours</span>
@@ -222,7 +222,7 @@
             ><span>Products</span> <i class="fa-solid fa-sort-down"></i
           ></router-link>
         </div>
-        <div class="mega-menu products-mega-menu">
+        <div class="mega-menu products-mega-menu" v-if="isMegaMenu">
           <div class="products-link">
             <router-link
               to="/products/networking"
@@ -530,6 +530,10 @@ export default {
 
     router.afterEach((to) => {
       currentRoute.value = to.path;
+      if(isMegaMenu.value){
+        isMegaMenu.value = !isMegaMenu.value;
+        emit("menuStatus", isMegaMenu.value);
+      }
     });
 
     const goRoute = (id) => {
