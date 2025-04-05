@@ -1,4 +1,5 @@
 <template>
+  <div>
   <div class="about-us">
     <div class="header">
       <h5>ABOUT</h5>
@@ -75,10 +76,34 @@
       team is growing fast.
     </p>
   </div>
+  <br>
+  <OurProfile :items="profiles" :title="'Our Solution Profiles'"></OurProfile>
+  </div>
 </template>
 
 <script>
-export default {};
+import OurProfile from "./OurProfile.vue";
+
+export default {
+  components: {
+    OurProfile
+  },
+
+  setup(){
+    
+      let profiles = [
+      { name: 'Company Profile', file: '/pdfs/company_profile.pdf',file_name:'Green IT Company Profile'},
+      { name: 'ELV Profile', file: '/pdfs/elv_profile.pdf',file_name:'Green IT ELV Profile' },
+      { name: 'Solution Profile', file: '/pdfs/solution_profile.pdf', file_name:'Green IT Solution Profile' },
+      { name: 'Licensing Solution', file: '/pdfs/licensing_profile.pdf', file_name:'Green IT Licensing Software Profile' },
+      { name: 'Server Rentals', file: '/pdfs/server_rental_profile.pdf', file_name:'Green IT Server Rental Profile' },
+      { name: 'ERP Profile', file: '/pdfs/erp_profile.pdf', file_name:'Green IT ERP Profile' },
+      { name: 'Data Center Maintainance', file: '/pdfs/data_center.pdf', file_name:'Green IT Data Center Maintainance Profile' },
+
+    ]
+     return {profiles}
+  },
+};
 </script>
 
 <style scoped>

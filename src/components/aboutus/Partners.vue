@@ -19,7 +19,7 @@
       </p>
     </div>
   </div>
-
+ 
   <PartnerCard :items="infras" :title="'Infrastructure'"></PartnerCard>
   <PartnerCard :items="network" :title="'Network'"></PartnerCard>
   <PartnerCard :items="protection" :title="'Protection'"></PartnerCard>
