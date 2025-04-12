@@ -1,549 +1,257 @@
 <template>
-  <div>
   <div class="about-us">
     <div class="header">
       <h5>ABOUT</h5>
-      <h2>Yours bests IT Partner</h2>
+      <h2>Your Best IT Partner</h2>
       <h6>Everyone has a story. Here's ours.</h6>
     </div>
-    <div class="img">
-      <img :src="require('@/assets/images/yangon.jpg')" alt="" />
-      <p>
-        Green IT is leading Information Technology Company, found in 2015, is
-        not only Technical Services & Solutions provider but also supply the
-        most qualified enterprise Networking devices to all size of Business
-        across Myanmar and Singapore.
+
+    <!-- Image with glassmorphism card -->
+    <div class="image-container">
+      <img :src="require('@/assets/images/yangon.jpg')" alt="Yangon" />
+      <div class="glass-card" :style="glassCardStyle">
+      <p class="read-more-text">
+        {{ showMore ? fullText : shortText }}
+        <span v-if="!showMore">...</span>
+        <button @click="showMore = !showMore">
+          {{ showMore ? ' Show Less' : ' Read More' }}
+        </button>
       </p>
+
+      </div>
     </div>
+
+    <!-- We Are Section -->
     <div class="we-are">
       <h6>We are</h6>
       <div class="items">
-        <div class="item">
-          <div class="block">Passionate</div>
-          <p>
-            We are intensely enthusiastic about providing a superior experience
-          </p>
-        </div>
-
-        <div class="item">
-          <div class="block">Respectful</div>
-          <p>
-            We are polite, kind and conpassion to one another, even when it gets
-            though.
-          </p>
-        </div>
-
-        <div class="item">
-          <div class="block">Ownership</div>
-          <p>We are empowered to do our jobs and work towards a common goal.</p>
-        </div>
-
-        <div class="item">
-          <div class="block">Unified</div>
-          <p>
-            We work as a team and trust each other to create a seamless
-            experience.
-          </p>
-        </div>
-
-        <div class="item">
-          <div class="block">Reliable</div>
-          <p>
-            We are consistently good in quality control, performance, services
-            and able to trusted.
-          </p>
+        <div class="item" v-for="(trait, index) in traits" :key="index">
+          <div class="block">{{ trait.title }}</div>
+          <p>{{ trait.description }}</p>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="aboutus-video">
-    <iframe
-      src="https://www.youtube.com/embed/pygRoZSd80A?si=WMTHpGivb1Aq06dG"
-      title="YouTube video player"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      allowfullscreen
-    ></iframe>
-  </div>
+    <!-- Video Section -->
+    <div class="aboutus-video">
+      <iframe
+        src="https://www.youtube.com/embed/pygRoZSd80A?si=WMTHpGivb1Aq06dG"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+      ></iframe>
+    </div>
 
-  <div class="about-us-text">
-    <h2>A team built on experience</h2>
-    <p>
-      We're continuing to build our network nationally, bringing together a
-      vibrant team with best-in-class service and techinical skills alike. With
-      the experience of 1K projects we had done in Yangon and Singapore, our
-      team is growing fast.
-    </p>
-  </div>
-  <br>
-  <OurProfile :items="profiles" :title="'Our Solution Profiles'"></OurProfile>
+    <!-- Bottom Text -->
+    <div class="about-us-text">
+      <h2>A team built on experience</h2>
+      <p>
+        We're continuing to build our network nationally, bringing together a
+        vibrant team with best-in-class service and technical skills alike. With
+        the experience of 1K projects we had done in Yangon and Singapore, our
+        team is growing fast.
+      </p>
+    </div>
+
+    <!-- Profiles -->
+    <OurProfile :items="profiles" :title="'Our Solution Profiles'" />
   </div>
 </template>
 
 <script>
 import OurProfile from "./OurProfile.vue";
+import { ref, computed } from "vue";
 
 export default {
-  components: {
-    OurProfile
-  },
+  components: { OurProfile },
+  setup() {
+    const showMore = ref(false);
+    const fullText = `Green IT Co., Ltd is the leading resource for comprehensive system integration as well as supply the most qualified enterprise networking devices to all sizes of Business across Singapore and Myanmar and was founded in 2015. We supply hardware devices for Computing, Networking, Licensing Software and ELV system. The provided solutions and services are Infrastructure Services, ELV Services & Solutions, Server Rental Services, Collaboration Solutions, Enterprise Solutions, DC Maintenance & Colocation, Network Security Services and Cloud & Cloud PBx Solutions.`;
+    const shortText = fullText.slice(0, 100);
 
-  setup(){
-    
-      let profiles = [
-      { name: 'Company Profile', file: '/pdfs/company_profile.pdf',file_name:'Green IT Company Profile'},
-      { name: 'ELV Profile', file: '/pdfs/elv_profile.pdf',file_name:'Green IT ELV Profile' },
-      { name: 'Solution Profile', file: '/pdfs/solution_profile.pdf', file_name:'Green IT Solution Profile' },
-      { name: 'Licensing Solution', file: '/pdfs/licensing_profile.pdf', file_name:'Green IT Licensing Software Profile' },
-      { name: 'Server Rentals', file: '/pdfs/server_rental_profile.pdf', file_name:'Green IT Server Rental Profile' },
-      { name: 'ERP Profile', file: '/pdfs/erp_profile.pdf', file_name:'Green IT ERP Profile' },
-      { name: 'Data Center Maintainance', file: '/pdfs/data_center.pdf', file_name:'Green IT Data Center Maintainance Profile' },
+    const glassCardStyle = computed(() => ({
+      top: showMore.value ? '50%' : '80%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+    }));
 
-    ]
-     return {profiles}
+    const profiles = [
+      { name: 'Company Profile', file: '/pdfs/company_profile.pdf', file_name: 'Green IT Company Profile' },
+      { name: 'ELV Profile', file: '/pdfs/elv_profile.pdf', file_name: 'Green IT ELV Profile' },
+      { name: 'Solution Profile', file: '/pdfs/solution_profile.pdf', file_name: 'Green IT Solution Profile' },
+      { name: 'Licensing Solution', file: '/pdfs/licensing_profile.pdf', file_name: 'Green IT Licensing Software Profile' },
+      { name: 'Server Rentals', file: '/pdfs/server_rental_profile.pdf', file_name: 'Green IT Server Rental Profile' },
+      { name: 'ERP Profile', file: '/pdfs/erp_profile.pdf', file_name: 'Green IT ERP Profile' },
+      { name: 'Data Center Maintainance', file: '/pdfs/data_center.pdf', file_name: 'Green IT Data Center Maintainance Profile' },
+    ];
+
+    const traits = [
+      { title: 'Passionate', description: 'We are intensely enthusiastic about providing a superior experience' },
+      { title: 'Respectful', description: 'We are polite, kind and compassionate to one another, even when it gets tough.' },
+      { title: 'Ownership', description: 'We are empowered to do our jobs and work towards a common goal.' },
+      { title: 'Unified', description: 'We work as a team and trust each other to create a seamless experience.' },
+      { title: 'Reliable', description: 'We are consistently good in quality control, performance, services and can be trusted.' },
+    ];
+
+    return { showMore, fullText, shortText, glassCardStyle, profiles, traits };
   },
 };
 </script>
 
 <style scoped>
+.read-more-text {
+  font-size: 30px !important;
+  line-height: 50px !important;
+  margin-bottom: 15px;
+  color: white;
+}
+.read-more-text button {
+  background: none;
+  border: none;
+  color: #007bff;
+  text-decoration: underline;
+  font-size: 18px;
+  cursor: pointer;
+  display: inline;
+  padding-left: 8px;
+}
 .about-us {
-  padding: 30px 20% 10px;
+  padding: 30px 10%;
+  font-family: Arial, sans-serif;
 }
 
-.about-us .header {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 5px;
+.header {
+  text-align: center;
+  margin-bottom: 40px;
 }
 
-.about-us .header h5 {
-  background: #7fb773;
+.header h5 {
+  background-color: #7fb773;
   display: inline-block;
-  padding: 2px 10px;
-  border-radius: 3px;
+  padding: 5px 15px;
+  border-radius: 4px;
   color: #fff;
+  font-size: 14px;
 }
 
-.about-us .header h2 {
-  font-size: 40px;
-  margin: 10px auto 2px;
+.header h2 {
+  font-size: 36px;
+  margin: 15px 0 5px;
 }
 
-.about-us .header h6 {
-  font-size: 20px;
+.header h6 {
+  font-size: 18px;
+  color: #555;
 }
 
-.about-us .img {
+.image-container {
   position: relative;
-}
-
-.about-us img {
   width: 100%;
   height: 600px;
+  overflow: hidden;
+  margin-bottom: 40px;
 }
 
-.about-us .img p {
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.glass-card {
   position: absolute;
-  bottom: 12%;
-  padding: 0 8%;
-  font-size: 22px;
-  color: #fff;
-  line-height: 50px;
-  text-indent: 50px;
-}
-
-.about-us .we-are {
-  padding: 30px 2% 0px;
-}
-
-.about-us .we-are h6 {
-  font-size: 22px;
-}
-
-.about-us .items {
-  margin: 20px 0;
-  display: flex;
-  gap: 15px;
-}
-
-.about-us .item {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  justify-content: center;
-  align-items: center;
-}
-
-.about-us .item .block {
-  width: 140px;
-  height: 140px;
-  background: #7fb773;
-  border-radius: 7px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  padding: 0 20px;
-  font-weight: bold;
-  font-size: 23px;
-  letter-spacing: 1px;
-}
-
-.about-us .item p {
-  font-size: 19px;
+  width: 80%;
+  max-width: 800px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 30px;
+  border-radius: 15px;
+  color: white;
+  font-size: 18px;
+  line-height: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
   text-align: center;
-  height: 80px;
-  word-spacing: -1px;
+  transition: top 0.3s ease;
+}
+
+.glass-card p {
+  font-size: 25px !important;
+  line-height: 50px !important;
+  margin-bottom: 15px;
+}
+
+.glass-card button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  text-decoration: underline;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.we-are {
+  margin-top: 40px;
+}
+
+.we-are h6 {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.item {
+  width: 180px;
+  text-align: center;
+}
+
+.item .block {
+  background-color: #7fb773;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 30px 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.item p {
+  font-size: 16px;
+  color: #333;
 }
 
 .aboutus-video {
-  margin: 20px auto;
   text-align: center;
+  margin: 50px 0;
 }
 
 .aboutus-video iframe {
-  width: 1000px;
-  height: 570px;
+  width: 100%;
+  max-width: 960px;
+  height: 540px;
 }
 
 .about-us-text {
   background: #f7f6dc;
-  padding: 50px 25%;
+  padding: 50px 10%;
+  text-align: center;
 }
 
 .about-us-text h2 {
-  text-align: center;
-  font-size: 35px;
-  margin: 10px auto 30px;
+  font-size: 30px;
+  margin-bottom: 20px;
 }
 
 .about-us-text p {
-  text-align: center;
-  font-size: 22px;
-  padding: 0 1%;
-}
-
-@media (max-width: 1650px) {
-  .about-us .img p {
-    bottom: 11%;
-    line-height: 40px;
-  }
-}
-
-@media (max-width: 1620px) {
-  .about-us {
-    padding: 30px 15% 10px;
-  }
-  .about-us .img p {
-    bottom: 12%;
-    line-height: 50px;
-  }
-}
-
-@media (max-width: 1200px) {
-  .about-us {
-    padding: 30px 10% 10px;
-  }
-
-  .about-us .items {
-    margin: 20px 0;
-    display: flex;
-    gap: 5px;
-  }
-
-  .about-us .item .block {
-    font-size: 20px;
-  }
-
-  .about-us .item p {
-    font-size: 18px;
-  }
-
-  .aboutus-video iframe {
-    width: 700px;
-    height: 400px;
-  }
-}
-
-@media (max-width: 990px) {
-  .about-us {
-    padding: 30px 4% 10px;
-  }
-
-  .about-us .header h5 {
-    font-size: 14px;
-  }
-
-  .about-us .header h2 {
-    font-size: 35px;
-  }
-
-  .about-us .header h6 {
-    font-size: 20px;
-  }
-
-  .about-us img {
-    width: 100%;
-    height: 450px;
-  }
-
-  .about-us .img p {
-    bottom: 12%;
-    padding: 0 7%;
-    font-size: 20px;
-    line-height: 40px;
-    text-indent: 50px;
-  }
-
-  .about-us .we-are {
-    padding: 30px 1% 0px;
-  }
-
-  .about-us .we-are h6 {
-    font-size: 18px;
-  }
-
-  .about-us .items {
-    margin: 20px 0;
-    gap: 10px;
-  }
-
-  .about-us .item {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .about-us .item .block {
-    width: 140px;
-    height: 120px;
-    padding: 0 20px;
-  }
-
-  .about-us .item p {
-    font-size: 18px;
-    height: 80px;
-    word-spacing: 0px;
-  }
-
-  .about-us-text {
-    padding: 50px 12%;
-  }
-
-  .about-us-text h2 {
-    font-size: 30px;
-  }
-
-  .about-us-text p {
-    font-size: 20px;
-  }
-}
-
-@media (max-width: 865px) {
-  .about-us .img p {
-    bottom: 12%;
-    padding: 0 7%;
-    line-height: 40px;
-  }
-
-  .aboutus-video iframe {
-    width: 590px;
-    height: 330px;
-  }
-}
-
-@media (max-width: 800px) {
-  .about-us .items {
-    margin: 20px 0;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-
-  .about-us .item {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    justify-content: center;
-    align-items: center;
-    width: 22%;
-  }
-
-  .about-us .item .block {
-    width: 100%;
-    height: 120px;
-    padding: 0 20px;
-  }
-}
-
-@media (max-width: 785px) {
-  .about-us .img p {
-    bottom: 12%;
-    padding: 0 7%;
-    font-size: 18px;
-    line-height: 30px;
-  }
-
-  .about-us img {
-    width: 100%;
-    height: 400px;
-  }
-}
-
-@media (max-width: 670px) {
-  .about-us {
-    padding: 30px 2% 10px;
-  }
-
-  .about-us .header h2 {
-    font-size: 25px;
-  }
-
-  .about-us .header h6 {
-    font-size: 15px;
-  }
-  .about-us img {
-    width: 100%;
-    height: 350px;
-  }
-
-  .about-us .img p {
-    bottom: 7%;
-    padding: 0 7%;
-    line-height: 25px;
-  }
-
-  .about-us .item p {
-    font-size: 17px;
-  }
-
-  .aboutus-video iframe {
-    width: 510px;
-    height: 300px;
-  }
-}
-
-@media (max-width: 550px) {
-  .about-us img {
-    width: 100%;
-    height: 300px;
-  }
-
-  .about-us .img p {
-    bottom: 12%;
-    padding: 0 7%;
-    font-size: 14px;
-    line-height: 20px;
-  }
-
-  .about-us .items {
-    justify-content: center;
-    gap: 25px;
-  }
-
-  .about-us .item {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    justify-content: center;
-    align-items: center;
-    width: 25%;
-    margin-bottom: 20px;
-  }
-
-  .about-us .item .block {
-    width: 100%;
-    height: 110px;
-    font-size: 13px;
-  }
-
-  .about-us .item p {
-    font-size: 15px;
-    height: 50px;
-  }
-
-  .about-us-text {
-    padding: 40px 7%;
-  }
-
-  .about-us-text h2 {
-    font-size: 24px;
-  }
-
-  .aboutus-video iframe {
-    width: 400px;
-    height: 220px;
-  }
-}
-
-@media (max-width: 480px) {
-  .about-us img {
-    height: 270px;
-  }
-
-  .about-us .img p {
-    bottom: 5%;
-    padding: 0 7%;
-    font-size: 13px;
-    line-height: 20px;
-  }
-
-  .about-us .items {
-    justify-content: center;
-    gap: 25px;
-  }
-
-  .about-us .item {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    justify-content: center;
-    align-items: center;
-    width: 40%;
-  }
-
-  .about-us .item .block {
-    width: 100%;
-    height: 110px;
-    font-size: 13px;
-  }
-
-  .about-us .item .block {
-    font-size: 22px;
-  }
-
-  .about-us .item p {
-    font-size: 17px;
-    height: 50px;
-  }
-
-  .about-us-text {
-    padding: 40px 4%;
-  }
-
-  .about-us-text h2 {
-    font-size: 22px;
-  }
-
-  .about-us-text p {
-    font-size: 17px;
-  }
-}
-
-@media (max-width: 430px) {
-  .aboutus-video iframe {
-    width: 360px;
-    height: 210px;
-  }
-}
-
-@media (max-width: 380px) {
-  .about-us {
-    padding: 10px 2% 10px;
-  }
+  font-size: 18px;
+  color: #444;
 }
 </style>
