@@ -254,4 +254,107 @@ export default {
   font-size: 18px;
   color: #444;
 }
+@media (max-width: 1200px) {
+  .glass-card p {
+    font-size: 20px !important;
+    line-height: 40px !important;
+  }
+
+  .read-more-text {
+    font-size: 20px !important;
+    line-height: 35px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-us {
+    padding: 30px 5%;
+  }
+
+  .header h2 {
+    font-size: 28px;
+  }
+
+  .header h6 {
+    font-size: 16px;
+  }
+
+  .image-container {
+    height: 400px;
+  }
+
+  .glass-card {
+    width: 90%;
+    padding: 20px;
+    font-size: 16px;
+    line-height: 28px;
+  }
+
+  .glass-card p {
+    font-size: 18px !important;
+    line-height: 30px !important;
+  }
+
+  .we-are h6 {
+    font-size: 20px;
+  }
+
+  .item {
+    width: 45%;
+  }
+
+  .item .block {
+    font-size: 16px;
+    padding: 20px 5px;
+  }
+
+  .item p {
+    font-size: 14px;
+  }
+
+  .aboutus-video iframe {
+    height: 300px;
+  }
+
+  .about-us-text h2 {
+    font-size: 24px;
+  }
+
+  .about-us-text p {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .item {
+    width: 100%;
+  }
+
+  .glass-card {
+    padding: 15px;
+  }
+
+  .glass-card p {
+    font-size: 16px !important;
+    line-height: 28px !important;
+  }
+
+  .read-more-text {
+    font-size: 16px !important;
+    line-height: 28px !important;
+  }
+
+  .aboutus-video iframe {
+    height: 200px;
+  }
+
+  .header h2 {
+    font-size: 24px;
+  }
+
+  .header h6 {
+    font-size: 14px;
+  }
+}
+
 </style>
